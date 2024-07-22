@@ -7,6 +7,7 @@ import {
   getSingleEvent,
   deleteEvent,
   updateEvent,
+  verifyPassword,
 } from '../controllers/adminController';
 import multer from 'multer';
 import { authenticateAdmin } from '../middleware/authMiddleware';
@@ -25,4 +26,9 @@ router
   .patch(authenticateAdmin, updateEvent)
   .get(authenticateAdmin, getSingleEvent)
   .delete(authenticateAdmin, deleteEvent);
+
+router
+  .route('/event/:id/verify-password')
+  .post(authenticateAdmin, verifyPassword);
+
 export default router;

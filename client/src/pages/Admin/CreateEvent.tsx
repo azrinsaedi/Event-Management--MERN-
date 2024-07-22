@@ -7,7 +7,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
-
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import customFetch from '../../utils/customFetch';
 
 const Input = styled('input')({
@@ -67,6 +69,10 @@ const CreateEvent: React.FC = () => {
             id='location'
             autoComplete='location'
           />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker label='Start Date Time' name='start_date' />
+            <DateTimePicker label='End Date Time' name='end_date' />
+          </LocalizationProvider>
           <label htmlFor='image-upload'>
             <Input
               accept='image/*'

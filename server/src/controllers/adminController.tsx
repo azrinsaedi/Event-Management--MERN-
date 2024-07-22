@@ -93,7 +93,7 @@ export const createEvent = async (
       start_date,
       end_date,
       admin: userId,
-      image: req.body.image, 
+      image: req.body.image,
     });
 
     res.status(200).json({ event });
@@ -174,4 +174,31 @@ export const deleteEvent = async (
     }
   );
   res.status(200).json({ event });
+};
+
+export const verifyPassword = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const userId = req.admin?.userId;
+  const { password } = req.body;
+
+  const fetchedPassword = await AdminModel.findOne({
+    _id: userId,
+  });
+
+  if (!fetchedPassword?.password) {
+    res.status(404).send(false);
+    return;
+  }
+
+  const result = await comparePassword(password, fetchedPassword?.password);
+
+  if (result === true) {
+    res.send(result);
+    return;
+  }
+
+  res.status(403).send(result);
+  return;
 };

@@ -3,6 +3,7 @@ import { Typography, Box, Container, styled, Button } from '@mui/material';
 import customFetch from '../../utils/customFetch';
 import { useParams, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import dayjs from 'dayjs';
 
 const StyledImage = styled('img')({
   width: '100%',
@@ -17,11 +18,15 @@ const EventDetails: React.FC = () => {
   const [eventData, setEventData] = useState<{
     name: string;
     location: string;
+    start_date: string;
+    end_date: string;
     status: string;
     image: string;
   }>({
     name: '',
     location: '',
+    start_date: '',
+    end_date: '',
     status: '',
     image: '',
   });
@@ -37,6 +42,8 @@ const EventDetails: React.FC = () => {
         setEventData({
           name: data.event?.name || 'No Name',
           location: data.event?.location || 'No Location',
+          start_date: data.event?.start_date || 'No Start Date',
+          end_date: data.event?.end_date || 'No End Date',
           status: data.event?.status || 'No Status',
           image: data.event?.image || 'No Image',
         });
@@ -82,6 +89,13 @@ const EventDetails: React.FC = () => {
         </Typography>
         <Typography variant='body1' color='text.primary' paragraph>
           Status: {eventData.status}
+        </Typography>
+        <Typography variant='body1' color='text.primary' paragraph>
+          Start Date:
+          {dayjs(eventData.start_date).format('DD MMMM YYYY hh:mm a')}
+        </Typography>
+        <Typography variant='body1' color='text.primary' paragraph>
+          End Date: {dayjs(eventData.end_date).format('DD MMMM YYYY hh:mm a')}
         </Typography>
         <Button
           variant='outlined'

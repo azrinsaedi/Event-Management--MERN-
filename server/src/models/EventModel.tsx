@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 const EventSchema = new mongoose.Schema(
   {
     name: String,
-    startDate: Date,
-    endDate: Date,
+    start_date: Date,
+    end_date: Date,
     location: String,
     image: String,
     status: {
